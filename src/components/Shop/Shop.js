@@ -8,11 +8,9 @@ const Shop = () => {
     return (
         <div className="shop-container">
             <div className="product-container">
-                <ul>
-                    {
-                        products.map(product=> <li>{product.name}</li>)
-                    }
-                </ul>
+                {
+                    products.map(product=> <li>{product.name}</li>)
+                }
             </div>
            <div className="cart-container">
                 <h3>This is cart</h3>
