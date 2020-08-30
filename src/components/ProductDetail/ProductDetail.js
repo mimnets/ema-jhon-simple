@@ -5,7 +5,7 @@ import fakeData from '../../fakeData';
 
 const ProductDetail = () => {
     const {productKey} = useParams();
-    const product = fakeData.find(pd => pd.key == productKey);
+    const product = fakeData.find(pd => pd.key == productKey); // Use useEffct()
     return (
         <div>
             <h1>{productKey} Detail comming soon!</h1>
