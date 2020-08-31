@@ -8,7 +8,7 @@ const Cart = (props) => {
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
         totalPrice = totalPrice + product.price * product.quantity;
-        debugger;        
+        // debugger;        
     }
 
     let shipping = 0;
@@ -31,11 +31,11 @@ const Cart = (props) => {
             <p>Items Ordered : {cart.length}</p>
             <p>Product Price : ${formatNumber(totalPrice)}</p>
             <p><small>Shipping cost : ${shipping}</small></p>
-            <p><small>Tax & VAT : ${formatNumber(tax)}</small></p>
+            <p><small>Tax and VAT : ${formatNumber(tax)}</small></p>
             <p>Total Price : ${grandTotal}</p>
-            <Link to="/review">
-            <button className="main-button">Rview Order</button>
-            </Link>
+            {
+                props.children
+            }
         </div>
     );
 };
