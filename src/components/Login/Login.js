@@ -28,30 +28,32 @@ function Login() {
   const googleSignIn = () => {
       handleGoogleSignIn()
       .then(res => {
-          setUser(res);
-          setLoggedInUser(res);
-          history.replace(from);
+          handleResponse(res,true);
         })
   }
 
   const fbLogin = () => {
     handleFBLogin()
     .then(res => {
-        setUser(res);
-        setLoggedInUser(res);
-        history.replace(from);
+        handleResponse(res, true);
     })
     }
 
   const signOut = () => {
       handleSignOut()
       .then(res => {
-          setUser(res);
-          setLoggedInUser(res);
+          handleResponse(res, false);
 
       })
   }
 
+  const handleResponse = (res, redirect) => {
+    setUser(res);
+    setLoggedInUser(res);
+    if(redirect){
+        history.replace(from);
+    }
+  }
   
   const handleBlur = (event) => {
     let isFieldValid = true;
@@ -76,9 +78,7 @@ function Login() {
     if(newUser && user.email && user.password){
       createUserWithEmailAndPassword(user.name, user.email, user.password)
       .then(res => {
-        setUser(res);
-        setLoggedInUser(res);
-        history.replace(from);
+        handleResponse(res,true);
       })
     }
 
@@ -86,8 +86,7 @@ function Login() {
       signInWithEmailAndPassword(user.email, user.password)
       .then(res => {
         setUser(res);
-        setLoggedInUser(res);
-        history.replace(from);
+        handleResponse(res,true);
       })
 
     event.preventDefault();
