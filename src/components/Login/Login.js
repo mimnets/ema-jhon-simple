@@ -10,7 +10,7 @@ import { intializeLoginFramework, handleGoogleSignIn, handleSignOut, handleFBLog
 function Login() {
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
-    isSignedIn: true,
+    isSignedIn: false,
     name: '',
     email: '',
     photoURL: '',
