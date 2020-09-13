@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-
+import "firebase/auth";
 import { useState } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
-import { intializeLoginFramework, handleGoogleSignIn, handleSignOut, handleFBLogin } from './LoginManager';
+import { intializeLoginFramework, handleGoogleSignIn, handleSignOut, handleFBLogin, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './LoginManager';
 
 
 
@@ -74,15 +74,25 @@ function Login() {
   const handleSubmit = (event) => {
     // console.log(user.email,user.password)
     if(newUser && user.email && user.password){
-      
+      createUserWithEmailAndPassword(user.name, user.email, user.password)
+      .then(res => {
+        setUser(res);
+        setLoggedInUser(res);
+        history.replace(from);
+      })
     }
 
     if(!newUser && user.email && user.password){
-      
-    }
+      signInWithEmailAndPassword(user.email, user.password)
+      .then(res => {
+        setUser(res);
+        setLoggedInUser(res);
+        history.replace(from);
+      })
 
     event.preventDefault();
   }
+}
 
 
   return (
@@ -123,5 +133,4 @@ function Login() {
     </div>
   );
 }
-
 export default Login;
