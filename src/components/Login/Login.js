@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config';
 import { useState } from 'react';
+import { UserContext } from '../../App';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -16,12 +17,12 @@ function Login() {
     password: '',
   })
 
+  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
-
-  const provider = new firebase.auth.GoogleAuthProvider();
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
   const fbProvider = new firebase.auth.FacebookAuthProvider();
   const handleSignIn = () => {
-    firebase.auth().signInWithPopup(provider)
+    firebase.auth().signInWithPopup(googleProvider)
     .then(res => {
       const {displayName, photoURL, email} = res.user;
       const signedInUser = {
@@ -119,6 +120,7 @@ const handleFBLogin = () => {
         newUserInfo.error = '';
         newUserInfo.success = true;
         setUser(newUserInfo);
+        setLoggedInUser(newUserInfo);
       })
       .catch(error => {
         const newUserInfo = {...user};
