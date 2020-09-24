@@ -28,7 +28,7 @@ function Login() {
   const googleSignIn = () => {
       handleGoogleSignIn()
       .then(res => {
-          handleResponse(res,true);
+          handleResponse(res,true); // Required for login redirects
         })
   }
 
